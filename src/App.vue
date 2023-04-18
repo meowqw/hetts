@@ -1,26 +1,17 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <hettsMain />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import hettsMain from "@/components/hetts-main.vue";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    hettsMain
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
