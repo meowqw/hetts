@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-3">
           <div class="logo">
-            <a href="/">
+            <a @click="goTo('/')">
               <img src="@/assets/images/logo.png" />
             </a>
           </div>
@@ -13,19 +13,19 @@
           <div class="top-menu">
             <ul>
               <li>
-                <a href="/category">Компания</a>
+                <a @click="goTo('/category')">Компания</a>
               </li>
               <li>
-                <a href="/category">Свитера</a>
+                <a @click="goTo('/category')">Свитера</a>
               </li>
               <li>
-                <a href="/category">Сумки переноски</a>
+                <a @click="goTo('/category')">Сумки переноски</a>
               </li>
               <li>
-                <a href="/">Покупателям</a>
+                <a >Покупателям</a>
               </li>
               <li>
-                <a href="/">Контакты</a>
+                <a >Контакты</a>
               </li>
             </ul>
           </div>
@@ -33,7 +33,7 @@
         <div class="col-md-3">
             <div class="user-actions">
                 <div>
-        <a href="/account">
+        <a @click="goTo('/account')">
             <img src="@/assets/images/account-icon.svg" />
         </a>
     </div>
@@ -52,5 +52,11 @@
 //   import { mapActions } from "vuex";
 export default {
   name: "up-home-header",
+
+  methods: {
+    goTo(link) {
+        this.$router.push(link);
+    }
+  }
 };
 </script>
