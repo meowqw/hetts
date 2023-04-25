@@ -1,6 +1,4 @@
-<script setup>
-import ProductStickerDiscount from './hetts-product-sticker-discount.vue';
-</script>
+
 <template>
     <div class="product-item">
         <div class="product-item__image">
@@ -8,7 +6,7 @@ import ProductStickerDiscount from './hetts-product-sticker-discount.vue';
           <img src="@/assets/images/product-full-image.jpg" />
         </div>
         <div class="product-item__price">
-            <span>200 руб</span>
+            <span>{{ product.price }} руб</span>
             100 руб
 
             <div class="like">
@@ -17,14 +15,37 @@ import ProductStickerDiscount from './hetts-product-sticker-discount.vue';
         </div>
         <div class="product-item__title">
             <a href="/">
-                Свитер 001
+                {{ product.title }}
             </a>
         </div>
 
         <div class="product-item__actions">
             <div class="product-item__actions__btn">
-                <a href="/" class="button">Купить</a>
+                <a style="cursor: pointer;" class="button" @click="ADD_TO_CART(product)">Купить</a>
             </div>
         </div>
     </div>
 </template>
+
+
+<script>
+import ProductStickerDiscount from './hetts-product-sticker-discount.vue';
+import { mapActions } from "vuex";
+export default {
+  name: "hetts-product-item",
+  props: {
+    product: {
+        type: [Array, Object],
+        required: true
+    }
+  },
+  components: {
+    ProductStickerDiscount
+  },
+  methods: {
+    ...mapActions(['ADD_TO_CART'])
+  }
+  
+}
+
+</script>

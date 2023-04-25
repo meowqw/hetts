@@ -82,35 +82,18 @@
               data-bs-ride="carousel"
             >
               <div class="carousel-inner">
-                <div class="carousel-item active">
+                <div
+                  class="carousel-item active"
+                  v-for="carousel in products"
+                  :key="carousel.id"
+                >
                   <div class="row">
-                    <div class="col-md-3">
-                      <ProductItem />
-                    </div>
-                    <div class="col-md-3">
-                      <ProductItem />
-                    </div>
-                    <div class="col-md-3">
-                      <ProductItem />
-                    </div>
-                    <div class="col-md-3">
-                      <ProductItem />
-                    </div>
-                  </div>
-                </div>
-                <div class="carousel-item">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <ProductItem />
-                    </div>
-                    <div class="col-md-3">
-                      <ProductItem />
-                    </div>
-                    <div class="col-md-3">
-                      <ProductItem />
-                    </div>
-                    <div class="col-md-3">
-                      <ProductItem />
+                    <div
+                      class="col-md-3"
+                      v-for="product in carousel"
+                      :key="product.id"
+                    >
+                      <ProductItem :product="product" />
                     </div>
                   </div>
                 </div>
@@ -237,12 +220,36 @@
 <script>
 import Slider from "@/components/carousel/hetts-carouser-slider.vue";
 import ProductItem from "@/components/product/hetts-product-item.vue";
-//   import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "up-home-home",
+  data() {
+    return {
+      products: [],
+    };
+  },
   components: {
     Slider,
     ProductItem,
+  },
+  methods: {
+    ...mapActions(["GET_PRODUCTS_FROM_API"]),
+  },
+  computed: {
+    ...mapGetters(["PRODUCTS"]),
+  },
+  mounted() {
+    this.GET_PRODUCTS_FROM_API().then(() => {
+      const result = this.PRODUCTS.reduce((acc, cur, i) => {
+        const index = Math.floor(i / 4);
+        if (!acc[index]) {
+          acc[index] = [];
+        }
+        acc[index].push(cur);
+        return acc;
+      }, []);
+      this.products = result; // An array of arrays, each containing 4 elements
+    });
   },
 };
 </script>

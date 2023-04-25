@@ -22,26 +22,26 @@
                 <a @click="goTo('/category')">Сумки переноски</a>
               </li>
               <li>
-                <a >Покупателям</a>
+                <a>Покупателям</a>
               </li>
               <li>
-                <a >Контакты</a>
+                <a>Контакты</a>
               </li>
             </ul>
           </div>
         </div>
         <div class="col-md-3">
-            <div class="user-actions">
-                <div>
-        <a @click="goTo('/account')">
-            <img src="@/assets/images/account-icon.svg" />
-        </a>
-    </div>
+          <div class="user-actions">
+            <div>
+              <a @click="goTo('/account')">
+                <img src="@/assets/images/account-icon.svg" />
+              </a>
+            </div>
             <RouterLink to="/cart">
-            <img src="@/assets/images/cart-icon.svg"/>
-            <div class="badge">5</div>
+              <img src="@/assets/images/cart-icon.svg" />
+              <div class="badge">{{ CART.length }}</div>
             </RouterLink>
-        </div>
+          </div>
         </div>
       </div>
     </div>
@@ -49,14 +49,17 @@
 </template>
   
   <script>
-//   import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "up-home-header",
 
   methods: {
     goTo(link) {
-        this.$router.push(link);
-    }
-  }
+      this.$router.push(link);
+    },
+  },
+  computed: {
+    ...mapGetters(['CART',])
+  },
 };
 </script>
