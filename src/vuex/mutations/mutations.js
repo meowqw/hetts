@@ -4,35 +4,38 @@ export default {
         for (let product of products) {
             product['quantity'] = 0
         }
-      state.products = products;
+        state.products = products;
     },
     // cart
     SET_CART: (state, product) => {
         if (state.cart.length) {
-          let isProductExists = false;
-          state.cart.map(function (item) {
-            if (item.id === product.id) {
-              isProductExists = true;
-              item.quantity++;
+            let isProductExists = false;
+            state.cart.map(function (item) {
+                if (item.id === product.id) {
+                    isProductExists = true;
+                    item.quantity++;
+
+                }
+            });
+            if (!isProductExists) {
+                state.cart.push(product);
+                product.quantity = 1;
+                product['checked'] = true;
             }
-          });
-          if (!isProductExists) {
+        } else {
             state.cart.push(product);
             product.quantity = 1;
-          }
-        } else {
-          state.cart.push(product);
-          product.quantity = 1;
+            product['checked'] = true;
         }
-      },
-      REMOVE_FROM_CART: (state, id) => {
+    },
+    REMOVE_FROM_CART: (state, id) => {
         for (let product in state.cart) {
             if (state.cart[product].id === id) {
                 state.cart.splice(product, 1);
             }
         }
-      },
-      INCREMENT_ITEM: (state, id) => {
+    },
+    INCREMENT_ITEM: (state, id) => {
 
 
         for (let product in state.cart) {
@@ -41,12 +44,30 @@ export default {
             }
         }
 
-      },
-      DECREMENT_ITEM: (state, id) => {
+    },
+    DECREMENT_ITEM: (state, id) => {
         for (let product in state.cart) {
             if (state.cart[product].id === id) {
                 state.cart[product].quantity--;
+
+                if (state.cart[product].quantity < 0) {
+                    state.cart.splice(product, 1);
+                }
             }
         }
-      },
+    },
+    CHECK_ITEM: (state, id) => {
+        for (let product in state.cart) {
+            if (state.cart[product].id === id) {
+                state.cart[product]['checked'] = !state.cart[product]['checked']
+            }
+        }
+    },
+    SET_ACCOUNT_TO_STATE: (state, account) => {
+        state.account = account;
+
+    },
+    SET_ORDER_DATA_TO_STATE: (state, orderData) => {
+        state.orderData = orderData;
+    }
 }

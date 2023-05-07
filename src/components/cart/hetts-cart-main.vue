@@ -12,9 +12,11 @@
                   <input
                     class="form-check-input"
                     type="checkbox"
+                    @click="CHECK_CART_ITEM(product.id)"
                     value=""
-                    id="flexCheckDefault"
+                    id="flexCheckDefa§ult"
                     checked
+
                   />
                   <label class="form-check-label" for="flexCheckDefault">
                   </label>
@@ -67,7 +69,7 @@
                 <span>Цена</span>
                 <div class="cart-product__price__sum">
                   <!-- {{ MoneyHelper.format(product.price, settings.currency) }} -->
-                  {{ product.price }}
+                  {{ product.price * product.quantity}}
                 </div>
               </div>
             </div>
@@ -86,9 +88,9 @@
           <h3>Итоговая стоимость</h3>
           <div class="cart-total__sum">
             <!-- {{ MoneyHelper.format(cart.total, settings.currency) }} -->
-            1000
+            {{ getCartTotalCost() }}
           </div>
-          <a :href="$router.resolve({ path: '/checkout' }).href" class="button"
+          <a @click="$router.push('/checkout')" class="button"
             >Оформить заказ</a
           >
         </div>
@@ -107,10 +109,23 @@ export default {
       "DELETE_FROM_CART",
       "INCREMENT_CART_ITEM",
       "DECREMENT_CART_ITEM",
+      "CHECK_CART_ITEM",
     ]),
+
+    getCartTotalCost() {
+      let total = 0
+      for (let product of this.CART) {
+        if (product['checked']) {
+          total += (product['price'] * product['quantity'])
+        }
+      }
+
+      return total
+    },
   },
   computed: {
     ...mapGetters(["CART"]),
   },
+
 };
 </script>

@@ -1,52 +1,91 @@
 {
-    "product": [
-        {
-            "id": 0,
-            "title": "Свитер 1",
-            "price": 100,
-            "size": "L",
-            "color": "green",
-            "category": 1
-        },
-        {
-            "id": 1,
-            "title": "Свитер 2",
-            "price": 200,
-            "size": "M",
-            "color": "black",
-            "category": 1
-        },
-        {
-            "id": 2,
-            "title": "Свитер 3",
-            "price": 300,
-            "size": "M",
-            "color": "black",
-            "category": 1
-        },
-        {
-            "id": 3,
-            "title": "Свитер 4",
-            "price": 400,
-            "size": "XL",
-            "color": "black",
-            "category": 1
-        },
-        {
-            "id": 4,
-            "title": "Сумка 1",
-            "price": 500,
-            "size": "M",
-            "color": "black",
-            "category": 2
-        },
-        {
-            "id": 5,
-            "title": "Сумка 2",
-            "price": 600,
-            "size": "L",
-            "color": "black",
-            "category": 2
-        }
-    ]
+  "product": [
+    {
+      "id": 0,
+      "title": "Свитер 1",
+      "price": 100,
+      "discount_price": 50,
+      "size": "L",
+      "color": "green",
+      "category": 1
+    },
+    {
+      "id": 1,
+      "title": "Свитер 2",
+      "price": 200,
+      "discount_price": 100,
+      "size": "M",
+      "color": "black",
+      "category": 1
+    },
+    {
+      "id": 2,
+      "title": "Свитер 3",
+      "price": 300,
+      "discount_price": 150,
+      "size": "M",
+      "color": "black",
+      "category": 1
+    },
+    {
+      "id": 3,
+      "title": "Свитер 4",
+      "price": 400,
+      "discount_price": 300,
+      "size": "XL",
+      "color": "black",
+      "category": 1
+    },
+    {
+      "id": 4,
+      "title": "Сумка 1",
+      "price": 500,
+      "discount_price": 300,
+      "size": "M",
+      "color": "black",
+      "category": 2
+    },
+    {
+      "id": 5,
+      "title": "Сумка 2",
+      "price": 600,
+      "discount_price": 400,
+      "size": "L",
+      "color": "black",
+      "category": 2
+    }
+  ],
+  "product?color=black": [
+    {
+      "id": 3,
+      "title": "Свитер 4",
+      "price": 400,
+      "discount_price": 300,
+      "size": "XL",
+      "color": "black",
+      "category": 1
+    },
+    {
+      "id": 4,
+      "title": "Сумка 1",
+      "price": 500,
+      "discount_price": 300,
+      "size": "M",
+      "color": "black",
+      "category": 2
+    },
+    {
+      "id": 5,
+      "title": "Сумка 2",
+      "price": 600,
+      "discount_price": 400,
+      "size": "L",
+      "color": "black",
+      "category": 2
+    }
+  ],
+  "account": {
+    "email": "user@gmail.com",
+    "password": "user"
+  }
 }

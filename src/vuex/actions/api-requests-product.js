@@ -17,4 +17,19 @@ export default {
                 return error;
             });
     },
+
+    // получить продукты к фильтром
+    GET_PRODUCTS_WITH_FILTER_FROM_API({ commit }, filterData) {
+        return axios(`${API_DOMAIN}/product?${filterData}`, {
+            method: "GET",
+        })
+            .then((products) => {
+                commit("SET_PRODUCTS_TO_STATE", products.data);
+                return products;
+            })
+            .catch((error) => {
+                console.log(error);
+                return error;
+            });
+    },
 }

@@ -2,12 +2,12 @@
 <template>
     <div class="product-item">
         <div class="product-item__image">
-          <ProductStickerDiscount :price="100" :compare_at_price="200" />
+          <ProductStickerDiscount :price="product.discount_price" :compare_at_price="product.price" />
           <img src="@/assets/images/product-full-image.jpg" />
         </div>
         <div class="product-item__price">
             <span>{{ product.price }} руб</span>
-            100 руб
+          {{ product.discount_price }} руб
 
             <div class="like">
                 <img src="@/assets/images/heart-icon.svg" />

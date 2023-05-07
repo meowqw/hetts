@@ -7,6 +7,7 @@ import hettsProductCategory from "@/components/product/hetts-product-category";
 import hettsAccountEdit from "@/components/account/hetts-account-edit";
 import hettsAccountLogin from "@/components/account/hetts-account-login";
 import hettsAccountRegister from "@/components/account/hetts-account-register";
+import hettsOrderingCheckout from "@/components/ordering/hetts-ordering-checkout.vue";
 
 
 
@@ -45,6 +46,11 @@ let routes = [
         path: "/register",
         name: "register",
         component: hettsAccountRegister,
+    },
+    {
+        path: "/checkout",
+        name: "checkout",
+        component: hettsOrderingCheckout,
     },
 ];
 
