@@ -90,7 +90,7 @@
             <!-- {{ MoneyHelper.format(cart.total, settings.currency) }} -->
             {{ getCartTotalCost() }}
           </div>
-          <a @click="$router.push('/checkout')" class="button"
+          <a @click="$router.push('/checkout/personal')" class="button"
             >Оформить заказ</a
           >
         </div>

@@ -8,6 +8,10 @@ import hettsAccountEdit from "@/components/account/hetts-account-edit";
 import hettsAccountLogin from "@/components/account/hetts-account-login";
 import hettsAccountRegister from "@/components/account/hetts-account-register";
 import hettsOrderingCheckout from "@/components/ordering/hetts-ordering-checkout.vue";
+import hettsOrderingDelivery from "@/components/ordering/hetts-ordering-delivery.vue";
+import hettsOrderingPayment from "@/components/ordering/hetts-ordering-payment.vue";
+import hettsOrderingPersonal from "@/components/ordering/hetts-ordering-personal.vue";
+import hettsOrderingResult from "@/components/ordering/hetts-ordering-result.vue";
 
 
 
@@ -51,7 +55,30 @@ let routes = [
         path: "/checkout",
         name: "checkout",
         component: hettsOrderingCheckout,
+        children: [
+            {
+                path: "delivery",
+                name: "delivery",
+                component: hettsOrderingDelivery,
+            },
+            {
+                path: "payment",
+                name: "payment",
+                component: hettsOrderingPayment,
+            },
+            {
+                path: "personal",
+                name: "personal",
+                component: hettsOrderingPersonal,
+            },
+            {
+                path: "result",
+                name: "result",
+                component: hettsOrderingResult,
+            },
+        ]
     },
+
 ];
 
 

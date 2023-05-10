@@ -14,55 +14,60 @@
           <form>
             <div class="form-group">
               <input
-                required
-                type="text"
-                class="form-control"
-                placeholder="Имя *"
+                  required
+                  type="text"
+                  v-model="form.name"
+                  class="form-control"
+                  placeholder="Имя *"
               />
             </div>
             <div class="form-group">
               <input
-                required
-                type="text"
-                class="form-control"
-                placeholder="Фамилия"
+                  required
+                  type="text"
+                  v-model="form.surname"
+                  class="form-control"
+                  placeholder="Фамилия"
               />
             </div>
             <div class="form-group">
               <input
-                required
-                type="email"
-                class="form-control"
-                placeholder="E-mail *"
+                  required
+                  v-model="form.email"
+                  type="email"
+                  class="form-control"
+                  placeholder="E-mail *"
               />
             </div>
             <div class="form-group">
               <input
-                required
-                type="password"
-                class="form-control"
-                placeholder="Пароль *"
+                  required
+                  v-model="form.password"
+                  type="password"
+                  class="form-control"
+                  placeholder="Пароль *"
               />
             </div>
             <div class="form-group">
               <input
-                required
-                type="password"
-                class="form-control"
-                placeholder="Повторить пароль *"
+                  required
+                  v-model="form.confirmation_password"
+                  type="password"
+                  class="form-control"
+                  placeholder="Повторить пароль *"
               />
             </div>
-            <button class="button" type="submit">Зарегистрироваться</button>
+            <button class="button" @click="registration" type="button">Зарегистрироваться</button>
 
-            <div>
+            <div v-if="errorMessage">
               <div class="alert alert-danger mt-3">
-                <div>errors</div>
+                <div>Email уже зарегистрирован</div>
               </div>
             </div>
           </form>
           <!-- </template> -->
           <!-- <template v-else> -->
-          <p>Вам на E-mail отправлено письмо для активации аккаунта.</p>
+          <p v-if="messageSend">Вам на E-mail отправлено письмо для активации аккаунта.</p>
           <!-- </template> -->
         </div>
       </div>
@@ -72,22 +77,22 @@
           <form>
             <div class="form-group">
               <input
-                required
-                type="email"
-                class="form-control"
-                placeholder="E-mail *"
+                  required
+                  type="email"
+                  class="form-control"
+                  placeholder="E-mail *"
               />
             </div>
             <div class="form-group">
               <input
-                required
-                type="password"
-                class="form-control"
-                placeholder="Пароль *"
+                  required
+                  type="password"
+                  class="form-control"
+                  placeholder="Пароль *"
               />
             </div>
             <div class="reg-to-login-form__btns">
-              <button class="button" type="submit">Войти</button>
+              <button class="button" type="button">Войти</button>
               <a href="#">Забыли пароль?</a>
             </div>
           </form>
@@ -96,11 +101,39 @@
     </div>
   </div>
 </template>
-      
-  <script>
-//   import { mapActions } from "vuex";
+
+<script>
+import {mapActions} from "vuex";
+
 export default {
   name: "hetts-account-register",
+  data() {
+    return {
+      messageSend: false,
+      errorMessage: false,
+      form: {
+        name: '',
+        surname: '',
+        email: '',
+        password: '',
+        confirmation_password: ''
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['POST_ACCOUNT_API', "GET_ACCOUNT_BY_EMAIL_FROM_API"]),
+
+    async registration() {
+      let account = await this.GET_ACCOUNT_BY_EMAIL_FROM_API(this.form.email);
+      if (account.data.length) {
+        this.errorMessage = true;
+      } else {
+        this.POST_ACCOUNT_API(this.form);
+        this.messageSend = true;
+        this.$router.push('/login')
+      }
+    }
+  },
   components: {},
 };
 </script>

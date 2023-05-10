@@ -55,37 +55,130 @@
       "category": 2
     }
   ],
-  "product?color=black": [
+  "account": [
     {
+      "legal": [],
+      "id": 1
+    },
+    {
+      "name": "Анастасия",
+      "surname": "Битюцких",
+      "email": "lexerdxx@gmail.com",
+      "password": "2110",
+      "confirmation_password": "2110",
+      "apiId": "v1",
+      "id": 2,
+      "legal_status": "1",
+      "legal_data": {
+        "company_name": "",
+        "company_address": "",
+        "ogrn": "",
+        "inn": "",
+        "kpp": "",
+        "payment_account": "",
+        "correspondent_account": "",
+        "bic": "",
+        "bank": "",
+        "ceo": "",
+        "transport_company": "asfdas",
+        "type_shop": "Зоосалон",
+        "city": "Алейск",
+        "area": "Регион"
+      },
+      "middle_name": "asdfas",
+      "contact_phone": "89293468581",
+      "city": "",
+      "country_id": "2"
+    },
+    {
+      "name": "Олег",
+      "surname": "Смирнов",
+      "email": "lexerdxxx@gmail.com",
+      "password": "2110",
+      "confirmation_password": "2110",
+      "apiId": "v1",
       "id": 3,
-      "title": "Свитер 4",
-      "price": 400,
-      "discount_price": 300,
-      "size": "XL",
-      "color": "black",
-      "category": 1
+      "legal": []
     },
     {
-      "id": 4,
-      "title": "Сумка 1",
-      "price": 500,
-      "discount_price": 300,
-      "size": "M",
-      "color": "black",
-      "category": 2
-    },
-    {
-      "id": 5,
-      "title": "Сумка 2",
-      "price": 600,
-      "discount_price": 400,
-      "size": "L",
-      "color": "black",
-      "category": 2
+      "name": "Анастасия",
+      "surname": "Битюцких",
+      "email": "lexerdxxxxxx@gmail.com",
+      "password": "2110",
+      "confirmation_password": "2110",
+      "apiId": "v1",
+      "id": 4
     }
   ],
-  "account": {
-    "email": "user@gmail.com",
-    "password": "user"
-  }
+  "order": [
+    {
+      "date": "2023-05-10",
+      "account_id": 2,
+      "products": [
+        {
+          "id": 0,
+          "title": "Свитер 1",
+          "price": 100,
+          "discount_price": 50,
+          "size": "L",
+          "color": "green",
+          "category": 1,
+          "quantity": 1,
+          "checked": true
+        },
+        {
+          "id": 1,
+          "title": "Свитер 2",
+          "price": 200,
+          "discount_price": 100,
+          "size": "M",
+          "color": "black",
+          "category": 1,
+          "quantity": 1,
+          "checked": true
+        }
+      ],
+      "id": 1
+    },
+    {
+      "date": "2023-05-10",
+      "account_id": 2,
+      "products": [
+        {
+          "id": 1,
+          "title": "Свитер 2",
+          "price": 200,
+          "discount_price": 100,
+          "size": "M",
+          "color": "black",
+          "category": 1,
+          "quantity": 1,
+          "checked": true
+        },
+        {
+          "id": 2,
+          "title": "Свитер 3",
+          "price": 300,
+          "discount_price": 150,
+          "size": "M",
+          "color": "black",
+          "category": 1,
+          "quantity": 1,
+          "checked": true
+        },
+        {
+          "id": 5,
+          "title": "Сумка 2",
+          "price": 600,
+          "discount_price": 400,
+          "size": "L",
+          "color": "black",
+          "category": 2,
+          "quantity": 1,
+          "checked": true
+        }
+      ],
+      "id": 2
+    }
+  ]
 }

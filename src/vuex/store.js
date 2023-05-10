@@ -6,11 +6,13 @@ import getters from "./getters/getters";
 import mutations from "./mutations/mutations";
 import apiRequestsProduct from "./actions/api-requests-product";
 import apiRequestsAccount from "@/vuex/actions/api-requests-account";
+import apiRequestsOrder from "@/vuex/actions/api-requests-order";
 
 const actions = {
     ...apiRequestsProduct,
     ...commonActions,
     ...apiRequestsAccount,
+    ...apiRequestsOrder
 
 }
 
@@ -23,7 +25,10 @@ export default createStore({
         // данные акканута
         account: {},
         // данные оформления заказа
-        orderData: {}
+        //
+        orderData: [],
+        payment: '',
+        delivery: '',
     },
     mutations,
     actions,

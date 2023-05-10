@@ -8,69 +8,68 @@
               <h2>Мои заказы</h2>
             </div>
 
-              <div class="row">
-                <div class="col">
-                  <form>
-                    <div>
-                      <table class="order__table">
-                        <thead class="view--desktop">
-                          <tr>
-                            <th>Номер</th>
-                            <th>Продукты</th>
-                            <th>Сумма</th>
-                            <th>Статус</th>
-                            <th class="td-created_at">Дата создания</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr
-                          >
-                            <td class="td-number">
-                              <a
-                                :href="`${$router.resolve({ path: '/account/orders' })
-                                    .href
-                                }/1`"
-                              >
-                                <!-- {{ "#" + order.number }} -->
-                              </a>
-                            </td>
-                            <td>
-                              <div>
-                                
-                                <!-- <img /> -->
-                                <img src=""
-                                />
-                              </div>
-                            </td>
-                            <td class="td-price">
-                              <span class="view--mobile">total:</span>
-                              <!-- {{ order.total_formated }} -->123
-                            </td>
-                            <td class="td-status">
-                              <span class="view--mobile">order_status:</span>
-                              <!-- {{ order.status }} --> 123
-                            </td>
-                            <td class="td-created_at">
+            <div class="row" v-if="empty">
+              <div class="col">
+                <form>
+                  <div>
+                    <table class="order__table">
+                      <thead class="view--desktop">
+                      <tr>
+                        <th>Номер</th>
+                        <th>Продукты</th>
+                        <th>Сумма</th>
+                        <th>Статус</th>
+                        <th class="td-created_at">Дата создания</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr v-for="order in orders" :key="order.id">
+                        <td class="td-number">
+                          <a>
+<!--                          <a :href="`${$router.resolve({ path: '/account/orders' })-->
+<!--                                    .href-->
+<!--                                }/1`"-->
+<!--                          >-->
+                             {{ "#" + order.id }}
+                          </a>
+                        </td>
+                        <td>
+                          <div  v-for="product in order.products" :key="product.id">
+
+                            <!-- <img /> -->
+                            <img style="width: 30px; height: 30çpx" src="@/assets/images/product-full-image.jpg" alt="img"/>
+                          </div>
+                        </td>
+                        <td class="td-price">
+                          <span class="view--mobile">total:</span>
+                          {{ getCartTotalCost(order.products) }}
+                        </td>
+                        <td class="td-status">
+                          <span class="view--mobile">order_status:</span>
+<!--                          {{ order.status }}-->Создан
+                        </td>
+                        <td class="td-created_at">
                               <span class="view--mobile"
-                                >date_of_creation:</span
+                              >date_of_creation:</span
                               >
-                              <!-- {{ order.created_at_format }} --> 123
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="mt-10">
-                    </div>
-                  </form>
-                </div>
+                          {{ order.date }}
+                          <!-- {{ order.created_at_format }} -->
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="mt-10">
+                  </div>
+                </form>
               </div>
-          
-          
-              <div>
-                <p>У вас нет заказов</p>
-              </div>
-       
+            </div>
+
+
+            <div v-else>
+              <p>У вас нет заказов</p>
+            </div>
+
 
             <div>
               <a @click="perfomLogout" href="javascript:void(0)">Выйти</a>
@@ -92,37 +91,40 @@
               <div class="personal-data">
                 <div class="form-group mt-4">
                   <input
-                    type="text"
-                    name="contact_name"
-                    placeholder="Имя и Фамилия"
-                    class="form-control"
-                    readonly
+                      type="text"
+                      name="contact_name"
+                      placeholder="Имя и Фамилия"
+                      class="form-control"
+                      readonly
+                      :value="ACCOUNT.name"
                   />
                 </div>
                 <div class="form-group mt-3">
                   <input
-                    type="text"
-                    name="email"
-                    placeholder="E-mail"
-                    class="form-control"
-                    readonly
+                      type="text"
+                      name="email"
+                      placeholder="E-mail"
+                      class="form-control"
+                      readonly
+                      :value="ACCOUNT.email"
+
                   />
                 </div>
                 <div class="form-group mt-3">
                   <input
-                    type="text"
-                    name="contact_phone"
-                    id="contact_phone"
-                    placeholder="Телефон"
-                    class="form-control phone-masked"
-                    readonly
+                      type="text"
+                      name="contact_phone"
+                      id="contact_phone"
+                      placeholder="Телефон"
+                      class="form-control phone-masked"
+                      readonly
                   />
                 </div>
                 <div class="mt-4">
                   <a
-                    class="button"
-                    :href="`${$router.resolve({ path: '/account/edit' }).href}`"
-                    >Изменить</a
+                      class="button"
+                      :href="`${$router.resolve({ path: '/account/edit' }).href}`"
+                  >Изменить</a
                   >
                 </div>
               </div>
@@ -133,11 +135,42 @@
     </div>
   </div>
 </template>
-      
-  <script>
-//   import { mapActions } from "vuex";
+
+<script>
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "hetts-account-main",
+  data() {
+    return {
+      empty: false,
+      orders: []
+    }
+  },
+  methods: {
+    ...mapActions(['GET_ORDER_BY_ACCOUNT_FROM_API']),
+    getCartTotalCost(products) {
+      let total = 0
+      for (let product of products) {
+        if (product['checked']) {
+          total += (product['price'] * product['quantity'])
+        }
+      }
+
+      return total
+    },
+  },
+  computed: {
+    ...mapGetters(['ACCOUNT', 'ORDER']),
+  },
   components: {},
+  mounted() {
+    this.GET_ORDER_BY_ACCOUNT_FROM_API(this.ACCOUNT.id).then(() => {
+      console.log('orderload')
+      this.empty = true;
+      console.log(this.ORDER)
+      this.orders = this.ORDER;
+    })
+  }
 };
 </script>

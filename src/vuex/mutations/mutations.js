@@ -64,10 +64,22 @@ export default {
         }
     },
     SET_ACCOUNT_TO_STATE: (state, account) => {
-        state.account = account;
+        if ('id' in account) {
+            state.account = account;
+        }
+
 
     },
     SET_ORDER_DATA_TO_STATE: (state, orderData) => {
         state.orderData = orderData;
+    },
+    SET_ORDER_DELIVERY_TO_STATE: (state, delivery) => {
+        state.delivery = delivery;
+    },
+    SET_ORDER_PAYMENT_TO_STATE: (state, payment) => {
+        state.payment = payment;
+    },
+    SET_ORDER_TO_STATE: (state, order) => {
+        state.order = order;
     }
 }

@@ -33,7 +33,7 @@
         <div class="col-md-3">
           <div class="user-actions">
             <div>
-              <a @click="goTo('/account')">
+              <a @click="goToAccount()">
                 <img src="@/assets/images/account-icon.svg" />
               </a>
             </div>
@@ -57,9 +57,16 @@ export default {
     goTo(link) {
       this.$router.push(link);
     },
+    goToAccount() {
+      if ('id' in this.ACCOUNT) {
+        this.$router.push('/account');
+      } else {
+        this.$router.push('/login');
+      }
+    }
   },
   computed: {
-    ...mapGetters(['CART',])
+    ...mapGetters(['CART', 'ACCOUNT'])
   },
 };
 </script>

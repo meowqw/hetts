@@ -1,29 +1,36 @@
 <template>
-  <div class="checkout__form">
-    <h3>Способ оплаты</h3>
-    <div class="form-group">
-      <div v-for="payment_method in payment_methods" :key="payment_method.id" class="form-group mt-3">
-        <div class="form-check">
-          <input v-model="payment_method_id" :value="payment_method.id" class="form-check-input"
-                 type="radio" :id="`flexDefault${payment_method.id}`">
-          <label class="form-check-label" :for="`flexDefault${payment_method.id}`">
-            {{ payment_method.title }}
-            <div class="text-muted">{{ payment_method.description }}</div>
-          </label>
+  <div class="checkout">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="checkout__form">
+          <h3>Способ оплаты</h3>
+          <div class="form-group">
+            <div v-for="payment_method in payment_methods" :key="payment_method.id" class="form-group mt-3">
+              <div class="form-check">
+                <input v-model="payment_method_id" :value="payment_method.id" class="form-check-input"
+                       type="radio" :id="`flexDefault${payment_method.id}`">
+                <label class="form-check-label" :for="`flexDefault${payment_method.id}`">
+                  {{ payment_method.title }}
+                  <div class="text-muted">{{ payment_method.description }}</div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!--<div class="pay-logos">
+              <img src="/shop/themes/you-hetts/images/pay-logos.png" />
+          </div>-->
+
+          <!--<div class="form-check mt-5">
+              <input class="form-check-input" type="checkbox" value="" id="checkPrivacy" checked disabled>
+              <label class="form-check-label text-muted" for="checkPrivacy">
+                  Нажимая кнопку «Оформить заказ», я даю свое согласие на обработку моих персональных данных, в соответствии с Федеральным законом от 27.07.2006 года №152-ФЗ «О персональных данных», на условиях и для целей, определенных в Согласии на обработку персональных данных
+              </label>
+          </div>-->
         </div>
+        <a style="cursor: pointer" @click="next()" class="button">Далее</a>
       </div>
     </div>
-
-    <!--<div class="pay-logos">
-        <img src="/shop/themes/you-hetts/images/pay-logos.png" />
-    </div>-->
-
-    <!--<div class="form-check mt-5">
-        <input class="form-check-input" type="checkbox" value="" id="checkPrivacy" checked disabled>
-        <label class="form-check-label text-muted" for="checkPrivacy">
-            Нажимая кнопку «Оформить заказ», я даю свое согласие на обработку моих персональных данных, в соответствии с Федеральным законом от 27.07.2006 года №152-ФЗ «О персональных данных», на условиях и для целей, определенных в Согласии на обработку персональных данных
-        </label>
-    </div>-->
   </div>
 
 </template>
@@ -44,6 +51,11 @@ export default {
         }
       ],
       payment_method_id: ''
+    }
+  },
+  methods: {
+    next() {
+      this.$router.push('/checkout/result');
     }
   }
 }

@@ -220,7 +220,8 @@
 <script>
 import Slider from "@/components/carousel/hetts-carouser-slider.vue";
 import ProductItem from "@/components/product/hetts-product-item.vue";
-import { mapActions, mapGetters } from "vuex";
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "up-home-home",
   data() {
@@ -234,21 +235,21 @@ export default {
   },
   methods: {
     ...mapActions(["GET_PRODUCTS_FROM_API"]),
+
   },
   computed: {
     ...mapGetters(["PRODUCTS"]),
   },
   mounted() {
     this.GET_PRODUCTS_FROM_API().then(() => {
-      const result = this.PRODUCTS.reduce((acc, cur, i) => {
+      this.products = this.PRODUCTS.reduce((acc, cur, i) => {
         const index = Math.floor(i / 4);
         if (!acc[index]) {
           acc[index] = [];
         }
         acc[index].push(cur);
         return acc;
-      }, []);
-      this.products = result; // An array of arrays, each containing 4 elements
+      }, []); // An array of arrays, each containing 4 elements
     });
   },
 };
