@@ -10,7 +10,7 @@
                 Я новый покупатель
               </button>
             </li>
-            <li class="nav-item" role="presentation" v-if="!'id' in ACCOUNT">
+            <li class="nav-item" role="presentation" v-if="TOKEN === ''">
               <button class="nav-link" ref="shipping_item" id="old-tab" data-bs-toggle="tab" data-bs-target="#old"
                       type="button" role="tab" aria-controls="shipping" aria-selected="false">
                 У меня есть аккаунт
@@ -267,13 +267,14 @@
             </div>
 
             <div class="tab-pane fade show" id="old" role="tabpanel" aria-labelledby="old-tab">
-              <div class="checkout__form">
+              <div class="checkout__form" v-if="TOKEN === ''">
                 <h3>Вход в аккаунт</h3>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group mt-5">
                       <input
                           type="text"
+                          v-model="account.email"
                           class="form-control"
                           placeholder="E-mail"
                       >
@@ -285,6 +286,7 @@
                     <div class="form-group mt-5">
                       <input
                           type="password"
+                          v-model="account.password"
                           class="form-control"
                           placeholder="Пароль"
                       >
@@ -292,10 +294,13 @@
                   </div>
                 </div>
                 <div class="mt-5">
-                  <a href="javascript:void(0)" class="button">
+                  <a type="button" @click="login" class="button">
                     Войти в аккаунт
                   </a>
                 </div>
+              </div>
+              <div class="checkout__form" v-else>
+                  Вы аторизованы
               </div>
             </div>
           </div>
@@ -338,21 +343,28 @@ export default {
         city: '',
         country_id: ''
       },
+      account: {
+        email: '',
+        password: ''
+      },
       errors: [],
     }
   },
   computed: {
-    ...mapGetters(['ACCOUNT']),
+    ...mapGetters(['ACCOUNT', 'TOKEN']),
   },
   methods: {
-    ...mapActions(['UPDATE_ACCOUNT_API']),
+    ...mapActions(['POST_ACCOUNT_LOGIN_API']),
     next() {
 
       this.form['id'] = this.ACCOUNT.id;
-      this.UPDATE_ACCOUNT_API(this.form);
+      // this.UPDATE_ACCOUNT_API(this.form);
 
       this.$router.push('/checkout/delivery')
 
+    },
+    async login() {
+      await this.POST_ACCOUNT_LOGIN_API(this.account);
     }
   },
   mounted() {

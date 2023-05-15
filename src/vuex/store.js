@@ -24,6 +24,7 @@ export default createStore({
         cart: [],
         // данные акканута
         account: {},
+        token: '',
         // данные оформления заказа
         //
         orderData: [],

@@ -51,7 +51,7 @@
             <div class="form-group">
               <input
                   required
-                  v-model="form.confirmation_password"
+                  v-model="form.password_confirmation"
                   type="password"
                   class="form-control"
                   placeholder="Повторить пароль *"
@@ -61,7 +61,7 @@
 
             <div v-if="errorMessage">
               <div class="alert alert-danger mt-3">
-                <div>Email уже зарегистрирован</div>
+                <div>Что то пошло не так</div>
               </div>
             </div>
           </form>
@@ -116,22 +116,27 @@ export default {
         surname: '',
         email: '',
         password: '',
-        confirmation_password: ''
+        password_confirmation: ''
       }
     }
   },
   methods: {
-    ...mapActions(['POST_ACCOUNT_API', "GET_ACCOUNT_BY_EMAIL_FROM_API"]),
+    ...mapActions(['POST_ACCOUNT_REGISTER_API', "GET_ACCOUNT_BY_EMAIL_FROM_API"]),
 
     async registration() {
-      let account = await this.GET_ACCOUNT_BY_EMAIL_FROM_API(this.form.email);
-      if (account.data.length) {
-        this.errorMessage = true;
-      } else {
-        this.POST_ACCOUNT_API(this.form);
-        this.messageSend = true;
+      // let account = await this.GET_ACCOUNT_BY_EMAIL_FROM_API(this.form.email);
+      // if (account.data.length) {
+      //   this.errorMessage = true;
+      // } else {
+      let regData = await this.POST_ACCOUNT_REGISTER_API(this.form);
+      console.log(regData)
+      if ('status' in regData) {
         this.$router.push('/login')
+      } else {
+        this.errorMessage = true;
       }
+      //
+      //
     }
   },
   components: {},

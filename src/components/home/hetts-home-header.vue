@@ -58,7 +58,7 @@ export default {
       this.$router.push(link);
     },
     goToAccount() {
-      if ('id' in this.ACCOUNT) {
+      if (this.TOKEN !== '') {
         this.$router.push('/account');
       } else {
         this.$router.push('/login');
@@ -66,7 +66,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['CART', 'ACCOUNT'])
+    ...mapGetters(['CART', 'ACCOUNT', 'TOKEN'])
   },
 };
 </script>

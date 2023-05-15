@@ -44,21 +44,18 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['GET_ACCOUNT_BY_EMAIL_FROM_API', 'SET_ACCOUNT']),
+    ...mapActions(['POST_ACCOUNT_LOGIN_API', 'SET_ACCOUNT']),
     async login() {
-      let account = await this.GET_ACCOUNT_BY_EMAIL_FROM_API(this.form.email);
-      if (account.data.length) {
-        if (account.data[0].password === this.form.password) {
-          this.SET_ACCOUNT(account.data[0])
-          this.$router.push('/account');
-        } else {
-          this.errorMessage = true;
-        }
+      await this.POST_ACCOUNT_LOGIN_API(this.form);
+      if (this.TOKEN !== '') {
+        this.$router.push('/account')
+      } else {
+        this.errorMessage = true;
       }
     }
   },
   computed: {
-    ...mapGetters(['ACCOUNT'])
+    ...mapGetters(['ACCOUNT', 'TOKEN'])
   },
   components: {},
 };

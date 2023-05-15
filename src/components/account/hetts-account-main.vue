@@ -52,7 +52,7 @@
                               <span class="view--mobile"
                               >date_of_creation:</span
                               >
-                          {{ order.date }}
+                          {{ order.created_at }}
                           <!-- {{ order.created_at_format }} -->
                         </td>
                       </tr>
@@ -148,7 +148,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['GET_ORDER_BY_ACCOUNT_FROM_API']),
+    ...mapActions(['GET_ACCOUNT']),
     getCartTotalCost(products) {
       let total = 0
       for (let product of products) {
@@ -161,15 +161,14 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['ACCOUNT', 'ORDER']),
+    ...mapGetters(['ACCOUNT', 'TOKEN']),
   },
   components: {},
   mounted() {
-    this.GET_ORDER_BY_ACCOUNT_FROM_API(this.ACCOUNT.id).then(() => {
-      console.log('orderload')
+    this.GET_ACCOUNT(this.TOKEN).then(() => {
       this.empty = true;
       console.log(this.ORDER)
-      this.orders = this.ORDER;
+      this.orders = this.ACCOUNT.orders;
     })
   }
 };

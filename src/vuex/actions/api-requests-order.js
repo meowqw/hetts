@@ -3,7 +3,7 @@ import { API_DOMAIN } from '/config.js'
 export default {
     // получить все продукты
     GET_ORDER_BY_ACCOUNT_FROM_API({ commit }, accountId) {
-        return axios(`${API_DOMAIN}/order?account_id=${accountId}`, {
+        return axios(`${API_DOMAIN}/orders?account_id=${accountId}`, {
             method: "GET",
             // data: data
         })
@@ -17,12 +17,13 @@ export default {
             });
     },
     // добавить account
-    POST_ORDER_API({ commit }, account) {
-        return axios(`${API_DOMAIN}/order/`, {
+    POST_ORDER_API({ commit }, order) {
+        return axios(`${API_DOMAIN}/api/orders`, {
             method: "POST",
-            data: account,
+            data: order,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + order.token
             }
         })
             .then((response) => {

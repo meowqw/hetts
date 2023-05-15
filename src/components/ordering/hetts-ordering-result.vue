@@ -44,10 +44,10 @@ export default {
     hettsOrderingProducts
   },
   computed: {
-    ...mapGetters(['CART', 'ORDER_DELIVERY', 'ORDER_PAYMENT', 'ACCOUNT'])
+    ...mapGetters(['CART', 'ORDER_DELIVERY', 'ORDER_PAYMENT', 'ACCOUNT', 'TOKEN'])
   },
   methods: {
-    ...mapActions(['POST_ORDER_API']),
+    ...mapActions(['POST_ORDER_API', 'GET_ACCOUNT']),
     getCartTotalCost() {
       let total = 0
       for (let product of this.CART) {
@@ -59,17 +59,17 @@ export default {
       return total
     },
     makeOrder() {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = (now.getMonth() + 1).toString().padStart(2, '0');
-      const day = now.getDate().toString().padStart(2, '0');
-      const formattedDate = `${year}-${month}-${day}`;
-      this.POST_ORDER_API({date: formattedDate, account_id: this.ACCOUNT.id, products: this.CART})
-      this.$router.push('/account');
+      this.POST_ORDER_API({user_id: this.ACCOUNT.id, order_status_id: 1, products: this.CART, token: this.TOKEN})
+      // this.$router.push('/account');
 
 
 
     },
+
+
+  },
+  mounted() {
+    this.GET_ACCOUNT(this.TOKEN);
   }
 }
 </script>

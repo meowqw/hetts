@@ -23,5 +23,8 @@ export default {
     },
     ORDER(state) {
         return state.order;
+    },
+    TOKEN(state) {
+        return state.token;
     }
 }

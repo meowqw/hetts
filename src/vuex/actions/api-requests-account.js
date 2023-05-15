@@ -1,14 +1,17 @@
 import axios from "axios";
 import { API_DOMAIN } from '/config.js'
 export default {
-    // получить все продукты
-    GET_ACCOUNT_BY_EMAIL_FROM_API({ commit }, email) {
-        return axios(`${API_DOMAIN}/account?email=${email}`, {
+    // получить аккаунт
+    GET_ACCOUNT({ commit }, token) {
+        return axios(`${API_DOMAIN}/api/auth/user`, {
             method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
             // data: data
         })
             .then((account) => {
-                commit("SET_ACCOUNT_TO_STATE", account.data);
+                commit("SET_ACCOUNT_TO_STATE", account.data.data);
                 return account;
             })
             .catch((error) => {
@@ -16,9 +19,9 @@ export default {
                 return error;
             });
     },
-    // добавить account
-    POST_ACCOUNT_API({ commit }, account) {
-        return axios(`${API_DOMAIN}/account/`, {
+    // регистраница
+    POST_ACCOUNT_REGISTER_API({ commit }, account) {
+        return axios(`${API_DOMAIN}/api/auth/register`, {
             method: "POST",
             data: account,
             headers: {
@@ -34,21 +37,22 @@ export default {
                 return error;
             });
     },
-    UPDATE_ACCOUNT_API({ commit }, accountData) {
-        return axios(`${API_DOMAIN}/account/${accountData.id}`, {
-            method: "PATCH",
-            data: accountData,
+    // логин
+    POST_ACCOUNT_LOGIN_API({ commit }, account) {
+        return axios(`${API_DOMAIN}/api/auth/login`, {
+            method: "POST",
+            data: account,
             headers: {
                 'Content-Type': 'application/json'
             }
         })
             .then((response) => {
-                commit("SET_ACCOUNT_TO_STATE", response.data);
+                commit("SET_TOKEN_TO_STATE", response.data['Authorization']);
                 return response.data;
             })
             .catch((error) => {
                 console.log(error);
                 return error;
             });
-    }
+    },
 }
