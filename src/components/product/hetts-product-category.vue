@@ -45,7 +45,7 @@
                 <input
                     class="form-check-input"
                     type="checkbox"
-                    value="1000-3000"
+                    value="1500"
                     id="filterPriceTwo"
                     v-model="priceFilter"
                 />
@@ -57,7 +57,7 @@
                 <input
                     class="form-check-input"
                     type="checkbox"
-                    value="3000"
+                    value="2000"
                     id="filterPriceThree"
                     v-model="priceFilter"
                 />
@@ -74,7 +74,7 @@
                 <input
                     class="form-check-input"
                     type="checkbox"
-                    value="M"
+                    value="1"
                     id="m"
                     v-model="sizeFilter"
                 />
@@ -86,7 +86,7 @@
                 <input
                     class="form-check-input"
                     type="checkbox"
-                    value="XL"
+                    value="2"
                     id="xl"
                     v-model="sizeFilter"
                 />
@@ -98,7 +98,7 @@
                 <input
                     class="form-check-input"
                     type="checkbox"
-                    value="L"
+                    value="3"
                     id="l"
                     v-model="sizeFilter"
                 />
@@ -115,7 +115,7 @@
                 <input
                     class="form-check-input"
                     type="checkbox"
-                    value="green"
+                    value="1"
                     id="green"
                     v-model="colorFilter"
                 />
@@ -127,7 +127,7 @@
                 <input
                     class="form-check-input"
                     type="checkbox"
-                    value="red"
+                    value="2"
                     id="red"
                     v-model="colorFilter"
                 />
@@ -139,7 +139,7 @@
                 <input
                     class="form-check-input"
                     type="checkbox"
-                    value="black"
+                    value="3"
                     id="black"
                     v-model="colorFilter"
                 />
@@ -151,7 +151,7 @@
                 <input
                     class="form-check-input"
                     type="checkbox"
-                    value="brown"
+                    value="4"
                     id="brown"
                     v-model="colorFilter"
                 />
@@ -235,17 +235,17 @@ export default {
     generateFilterLink() {
       let link = ''
       if (this.sizeFilter.length > 0) {
-        link += ('size=' + this.sizeFilter.join(','))
+        link += ('size_id=' + this.sizeFilter.join(','))
       }
 
       if (this.colorFilter.length > 0) {
         if (link.length > 0) link += '&';
-        link += ('color=' + this.colorFilter.join(','))
+        link += ('color_id=' + this.colorFilter.join(','))
       }
 
       if (this.priceFilter.length > 0) {
         if (link.length > 0) link += '&';
-        link += ('price=' + this.priceFilter.join(','))
+        link += ('price_from=' + this.priceFilter.join(','))
       }
 
       return link
