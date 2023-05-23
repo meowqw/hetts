@@ -144,7 +144,7 @@
                   <div class="col-md-4">
                     <div class="form-group mt-5">
                       <input
-                          v-model="form.surname"
+                          v-model="form.personalData.surname"
                           type="text"
                           class="form-control"
                           :class="{'is-invalid': errors.indexOf('last_name') !== -1}"
@@ -155,7 +155,7 @@
                   <div class="col-md-4">
                     <div class="form-group mt-5">
                       <input
-                          v-model="form.name"
+                          v-model="form.personalData.name"
                           type="text"
                           class="form-control"
                           :class="{'is-invalid': errors.indexOf('first_name') !== -1}"
@@ -166,7 +166,7 @@
                   <div class="col-md-4">
                     <div class="form-group mt-5">
                       <input
-                          v-model="form.middle_name"
+                          v-model="form.personalData.middle_name"
                           type="text"
                           class="form-control"
                           :class="{'is-invalid': errors.indexOf('middle_name') !== -1}"
@@ -179,7 +179,7 @@
                   <div class="col-md-6">
                     <div class="form-group mt-5">
                       <input
-                          v-model="form.contact_phone"
+                          v-model="form.personalData.phone"
                           type="text"
                           class="form-control"
                           :class="{'is-invalid': errors.indexOf('contact_phone') !== -1}"
@@ -190,8 +190,9 @@
                   <div class="col-md-6">
                     <div class="form-group mt-5">
                       <input
-                          v-model="form.email"
+                          v-model="form.personalData.email"
                           type="text"
+                          disabled
                           class="form-control"
                           :class="{'is-invalid': errors.indexOf('contact_email') !== -1}"
                           placeholder="E-mail"
@@ -203,7 +204,7 @@
                   <div class="col-md-4">
                     <div class="form-group mt-5">
                       <input
-                          v-model="form.legal_data.city"
+                          v-model="form.personalData.city"
                           type="text"
                           class="form-control"
                           placeholder="Город"
@@ -215,12 +216,12 @@
                   <div class="col-md-4">
                     <div class="form-group mt-5">
                       <select
-                          v-model="form.legal_data.area"
+                          v-model="form.personalData.region"
                           class="form-control"
                           :class="{'is-invalid': errors.indexOf('area') !== -1}"
                       >
                         <option selected>Регион</option>
-                        <option v-for="(region, index) in regions" :key="index">
+                        <option v-for="region in regions" :key="region">
                           {{ region }}
                         </option>
                       </select>
@@ -228,7 +229,7 @@
                   </div>
                   <div class="col-md-4">
                     <div class="form-group mt-5">
-                      <select v-model="form.country_id" class="form-control">
+                      <select v-model="form.personalData.country" class="form-control">
                         <option value="2">Россия</option>
                       </select>
                     </div>
@@ -238,7 +239,7 @@
                   <div class="col-md-6">
                     <div class="form-group mt-5">
                       <input
-                          v-model="form.legal_data.transport_company"
+                          v-model="form.personalData.delivery_company"
                           type="text"
                           class="form-control"
                           :class="{'is-invalid': errors.indexOf('transport_company') !== -1}"
@@ -249,7 +250,7 @@
                   <div class="col-md-6">
                     <div class="form-group mt-5">
                       <select
-                          v-model="form.legal_data.type_shop"
+                          v-model="form.personalData.type_shop"
                           class="form-control"
                           :class="{'is-invalid': errors.indexOf('type_shop') !== -1}"
                       >
@@ -319,6 +320,7 @@ export default {
   data() {
     return {
       isLoggedIn: false,
+      regions: ["Московская область"],
       form: {
         legal_status: 1,
         legal_data: {
@@ -333,15 +335,19 @@ export default {
           bank: '',
           ceo: '',
           transport_company: '',
-          type_shop: ''
         },
-        surname: '',
-        name: '',
-        middle_name: '',
-        contact_phone: '',
-        email: '',
-        city: '',
-        country_id: ''
+        personalData: {
+          surname: '',
+          name: '',
+          middle_name: '',
+          phone: '',
+          region: '',
+          email: '',
+          city: '',
+          country: '',
+          delivery_company: '',
+          type_shop: ''
+        }
       },
       account: {
         email: '',
@@ -352,12 +358,30 @@ export default {
   },
   computed: {
     ...mapGetters(['ACCOUNT', 'TOKEN']),
+
+
   },
   methods: {
-    ...mapActions(['POST_ACCOUNT_LOGIN_API']),
+    ...mapActions(['POST_ACCOUNT_LOGIN_API', 'POST_LEGAL_API', "POST_PERSONAL_API", "UPDATE_PERSONAL_API", "UPDATE_LEGAL_API"]),
     next() {
 
+      this.form.personalData['token'] = this.TOKEN;
+      this.form.legal_data['token'] = this.TOKEN;
+
       this.form['id'] = this.ACCOUNT.id;
+      if (!this.ACCOUNT['personal']) {
+
+        this.POST_PERSONAL_API(this.form.personalData)
+      } else {
+        this.UPDATE_PERSONAL_API(this.form.personalData)
+      }
+
+      if (!this.ACCOUNT['legal']) {
+        this.POST_LEGAL_API(this.form.legal_data)
+      } else {
+        this.UPDATE_LEGAL_API(this.form.legal_data)
+
+      }
       // this.UPDATE_ACCOUNT_API(this.form);
 
       this.$router.push('/checkout/delivery')
@@ -368,8 +392,22 @@ export default {
     }
   },
   mounted() {
-    if ('legal_status' in this.ACCOUNT) {
-      this.form = this.ACCOUNT;
+    if (this.TOKEN === '') {
+      this.$router.push('/');
+    }
+
+    if ('id' in this.ACCOUNT) {
+      this.form.personalData.email = this.ACCOUNT.email;
+      this.form.personalData.user_id = this.ACCOUNT.id;
+      this.form.legal_data.user_id = this.ACCOUNT.id;
+
+      if (this.ACCOUNT['personal']) {
+        this.form.personalData = this.ACCOUNT['personal'][0];
+      }
+
+      if (this.ACCOUNT['legal']) {
+        this.form.legal_data = this.ACCOUNT['legal'][0];
+      }
     }
   }
 }

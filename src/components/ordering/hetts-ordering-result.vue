@@ -47,7 +47,7 @@ export default {
     ...mapGetters(['CART', 'ORDER_DELIVERY', 'ORDER_PAYMENT', 'ACCOUNT', 'TOKEN'])
   },
   methods: {
-    ...mapActions(['POST_ORDER_API', 'GET_ACCOUNT']),
+    ...mapActions(['POST_ORDER_API', 'GET_ACCOUNT', "CLEAR_CART"]),
     getCartTotalCost() {
       let total = 0
       for (let product of this.CART) {
@@ -60,9 +60,8 @@ export default {
     },
     makeOrder() {
       this.POST_ORDER_API({user_id: this.ACCOUNT.id, order_status_id: 1, products: this.CART, token: this.TOKEN})
-      // this.$router.push('/account');
-
-
+      this.CLEAR_CART();
+      this.$router.push('/account');
 
     },
 

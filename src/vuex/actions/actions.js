@@ -30,4 +30,7 @@ export default {
     SET_ORDER_PAYMENT({commit}, payment) {
         commit('SET_ORDER_PAYMENT_TO_STATE', payment)
     },
+    CLEAR_CART({commit}) {
+        commit('CLEAR_CART')
+    }
 };

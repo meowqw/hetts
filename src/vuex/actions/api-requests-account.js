@@ -55,4 +55,80 @@ export default {
                 return error;
             });
     },
+
+    POST_PERSONAL_API({commit}, personal) {
+        return axios(`${API_DOMAIN}/api/personal`, {
+            method: "POST",
+            data: personal,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + personal.token
+            }
+        })
+            .then((response) => {
+                commit();
+                return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                return error;
+            });
+    },
+
+    UPDATE_PERSONAL_API({commit}, personal) {
+        return axios(`${API_DOMAIN}/api/personal/${personal.id}`, {
+            method: "PATCH",
+            data: personal,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + personal.token
+            }
+        })
+            .then((response) => {
+                commit();
+                return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                return error;
+            });
+    },
+
+    POST_LEGAL_API({commit}, legal) {
+        return axios(`${API_DOMAIN}/api/legal`, {
+            method: "POST",
+            data: legal,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + legal.token
+            }
+        })
+            .then((response) => {
+                commit();
+                return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                return error;
+            });
+    },
+
+    UPDATE_LEGAL_API({commit}, legal) {
+        return axios(`${API_DOMAIN}/api/legal/${legal.id}`, {
+            method: "PATCH",
+            data: legal,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + legal.token
+            }
+        })
+            .then((response) => {
+                commit();
+                return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                return error;
+            });
+    }
 }

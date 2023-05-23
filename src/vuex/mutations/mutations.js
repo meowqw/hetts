@@ -80,5 +80,8 @@ export default {
     },
     SET_ORDER_TO_STATE: (state, order) => {
         state.order = order;
+    },
+    CLEAR_CART: (state) => {
+        state.cart = [];
     }
 }

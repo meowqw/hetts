@@ -90,7 +90,7 @@
             <!-- {{ MoneyHelper.format(cart.total, settings.currency) }} -->
             {{ getCartTotalCost() }}
           </div>
-          <a @click="$router.push('/checkout/personal')" class="button"
+          <a @click="goToPersonal" class="button"
             >Оформить заказ</a
           >
         </div>
@@ -122,9 +122,16 @@ export default {
 
       return total
     },
+    goToPersonal() {
+      if (this.TOKEN === '') {
+        this.$router.push('/login');
+      } else {
+        this.$router.push('/checkout/personal');
+      }
+    }
   },
   computed: {
-    ...mapGetters(["CART"]),
+    ...mapGetters(["CART", "TOKEN"]),
   },
 
 };

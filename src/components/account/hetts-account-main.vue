@@ -52,7 +52,7 @@
                               <span class="view--mobile"
                               >date_of_creation:</span
                               >
-                          {{ order.created_at }}
+                          {{ order.created_at.split('T')[0] }}
                           <!-- {{ order.created_at_format }} -->
                         </td>
                       </tr>
@@ -152,11 +152,10 @@ export default {
     getCartTotalCost(products) {
       let total = 0
       for (let product of products) {
-        if (product['checked']) {
-          total += (product['price'] * product['quantity'])
+        {
+            total += (Number(product['price']) * Number(product['quantity']))
         }
       }
-
       return total
     },
   },
