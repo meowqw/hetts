@@ -26,5 +26,8 @@ export default {
     },
     TOKEN(state) {
         return state.token;
+    },
+    CATEGORY(state) {
+        return state.category
     }
 }

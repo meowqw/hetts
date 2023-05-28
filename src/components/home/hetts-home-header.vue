@@ -12,21 +12,21 @@
         <div class="col-md-6">
           <div class="top-menu">
             <ul>
+<!--              <li>-->
+<!--&lt;!&ndash;                <a @click="goTo('/category')">Компания</a>&ndash;&gt;-->
+<!--              </li>-->
               <li>
-                <a @click="goTo('/category')">Компания</a>
+                <a @click="goTo('/category', 1)">Свитера</a>
               </li>
               <li>
-                <a @click="goTo('/category')">Свитера</a>
+                <a @click="goTo('/category', 2)">Сумки переноски</a>
               </li>
-              <li>
-                <a @click="goTo('/category')">Сумки переноски</a>
-              </li>
-              <li>
-                <a>Покупателям</a>
-              </li>
-              <li>
-                <a>Контакты</a>
-              </li>
+<!--              <li>-->
+<!--                <a>Покупателям</a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a>Контакты</a>-->
+<!--              </li>-->
             </ul>
           </div>
         </div>
@@ -49,12 +49,14 @@
 </template>
   
   <script>
-import { mapGetters } from "vuex";
+  import {mapActions, mapGetters} from "vuex";
 export default {
   name: "up-home-header",
 
   methods: {
-    goTo(link) {
+    ...mapActions(["SET_CATEGORY"]),
+    goTo(link, category) {
+      this.SET_CATEGORY(category);
       this.$router.push(link);
     },
     goToAccount() {

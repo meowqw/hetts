@@ -30,6 +30,8 @@ export default createStore({
         orderData: [],
         payment: '',
         delivery: '',
+
+        category: ''
     },
     mutations,
     actions,

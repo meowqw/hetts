@@ -14,7 +14,7 @@
         <div class="row">
           <div class="col-md-6">
             <a
-              href="#"
+              href="#" @click.prevent="goTo('/category', 1)"
               class="banner"
               style="background: url('/images/banner1.jpg')"
             >
@@ -42,7 +42,7 @@
           </div>
           <div class="col-md-6">
             <a
-              href="#"
+              href="#" @click.prevent="goTo('/category', 2)"
               class="banner"
               style="background: url('/images/banner2.jpg')"
             >
@@ -234,7 +234,11 @@ export default {
     ProductItem,
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API"]),
+    ...mapActions(["GET_PRODUCTS_FROM_API", "SET_CATEGORY"]),
+      goTo(link, category) {
+        this.SET_CATEGORY(category);
+        this.$router.push(link);
+      },
 
   },
   computed: {

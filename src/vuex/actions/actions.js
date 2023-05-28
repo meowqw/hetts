@@ -32,5 +32,8 @@ export default {
     },
     CLEAR_CART({commit}) {
         commit('CLEAR_CART')
+    },
+    SET_CATEGORY({commit}, category) {
+        commit('SET_CATEGORY', category)
     }
 };

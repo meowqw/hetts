@@ -123,7 +123,7 @@
                 <div class="mt-4">
                   <a
                       class="button"
-                      :href="`${$router.resolve({ path: '/account/edit' }).href}`"
+                      href="#" @click.prevent="$router.push('/account-edit')"
                   >Изменить</a
                   >
                 </div>

@@ -3,29 +3,35 @@
     <div class="row">
       <div class="col-md-3">
         <div class="category-filter">
-          <template>
-            <div class="category-filter__block">
-              <div class="category-filter__block__title">Категория</div>
-              <div class="category-filter__block__list">
-                <li>
-                  <a :href="`${$router.resolve({ path: '/category' }).href}/`"
-                  >Title</a
-                  >
-                </li>
-                <div class="form-check">
-                  <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                  />
-                  <label class="form-check-label" for="flexCheckDefault">
-                    Child title
-                  </label>
-                </div>
+          <div class="category-filter__block">
+            <div class="category-filter__block__title">Категория</div>
+            <div class="category-filter__block__list">
+              <div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="1"
+                    id="category1"
+                    v-model="category"
+                />
+                <label class="form-check-label" for="category1">
+                  Свитера
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="2"
+                    id="category2"
+                    v-model="category"
+                />
+                <label class="form-check-label" for="category2">
+                  Переноски для собак
+                </label>
               </div>
             </div>
-          </template>
+          </div>
           <div class="category-filter__block">
             <div class="category-filter__block__title">Цена</div>
             <div class="category-filter__block__list">
@@ -219,7 +225,9 @@ export default {
 
       priceFilter: [],
       sizeFilter: [],
-      colorFilter: []
+      colorFilter: [],
+
+      category: [],
     };
   },
   components: {
@@ -248,6 +256,11 @@ export default {
         link += ('price_from=' + this.priceFilter.join(','))
       }
 
+      if (this.category.length > 0) {
+        if (link.length > 0) link += '&';
+        link += ('category_id=' + this.category.join(','))
+      }
+
       return link
     },
 
@@ -270,11 +283,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["PRODUCTS"]),
+    ...mapGetters(["PRODUCTS", "CATEGORY"]),
   },
   mounted() {
-    this.GET_PRODUCTS_FROM_API().then(() => {
-    });
+    // this.GET_PRODUCTS_FROM_API().then(() => {
+    // });
+
+    this.category.push(this.CATEGORY);
+
+    this.filterProduct();
   },
 };
 </script>

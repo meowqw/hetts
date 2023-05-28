@@ -18,7 +18,7 @@
                                 из натуральных материалов
                             </p>
                             <div>
-                                <a href="#">Смотреть все</a>
+                                <a href="#" @click.prevent="$router.push('/category')">Смотреть все</a>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                                 из натуральных материалов
                             </p>
                             <div>
-                                <a href="#">Смотреть все</a>
+                                <a href="#" @click.prevent="$router.push('/category')">Смотреть все</a>
                             </div>
                         </div>
                     </div>

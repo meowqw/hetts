@@ -83,5 +83,8 @@ export default {
     },
     CLEAR_CART: (state) => {
         state.cart = [];
+    },
+    SET_CATEGORY: (state, category) => {
+        state.category = category
     }
 }
