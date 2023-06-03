@@ -301,7 +301,7 @@
                 </div>
               </div>
               <div class="checkout__form" v-else>
-                  Вы аторизованы
+                Вы аторизованы
               </div>
             </div>
           </div>
@@ -400,9 +400,12 @@ export default {
       this.form.personalData.email = this.ACCOUNT.email;
       this.form.personalData.user_id = this.ACCOUNT.id;
       this.form.legal_data.user_id = this.ACCOUNT.id;
+      this.form.personalData.name = this.ACCOUNT.name
+      this.form.personalData.surname = this.ACCOUNT.surname
 
       if (this.ACCOUNT['personal']) {
         this.form.personalData = this.ACCOUNT['personal'][0];
+
       }
 
       if (this.ACCOUNT['legal']) {

@@ -52,6 +52,7 @@
   import {mapActions, mapGetters} from "vuex";
 export default {
   name: "up-home-header",
+  components: {},
 
   methods: {
     ...mapActions(["SET_CATEGORY"]),

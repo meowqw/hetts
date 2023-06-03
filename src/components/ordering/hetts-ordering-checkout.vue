@@ -1,14 +1,9 @@
 <template>
-  <div class="checkout">
+  <div class="container">
     <div class="row">
-      <div class="col-md-8">
-        <router-view></router-view>
-
-
-<!--        <div>-->
-<!--          <a v-if="screen !== 0" style="cursor: pointer" @click="backScreen()">Назад</a>-->
-<!--          <a v-if="screen !== 3" style="cursor: pointer" @click="nextScreen()" class="button">Далее</a>-->
-<!--        </div>-->
+      <hetts-menu-head></hetts-menu-head>
+      <div class="checkout">
+            <router-view></router-view>
       </div>
     </div>
   </div>
@@ -16,11 +11,11 @@
 
 <script>
 import {mapGetters} from "vuex";
+import HettsMenuHead from "@/components/menu/hetts-menu-head.vue";
 
 export default {
   name: "hetts-cart-checkout",
-  components: {
-  },
+  components: {HettsMenuHead},
   data() {
     return {
       screen: 0,

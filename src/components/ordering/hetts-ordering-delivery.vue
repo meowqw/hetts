@@ -1,5 +1,5 @@
 <template>
-  <div class="checkout">
+  <div class="checkout" style="margin-bottom: 10%">
     <div class="row">
       <div class="col-md-8">
         <div class="checkout__form">

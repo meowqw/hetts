@@ -1,9 +1,9 @@
 <template>
-  <hettsOrderingProducts></hettsOrderingProducts>
-  <div class="checkout">
     <div class="row">
-      <div class="col-md-8">
-        <div class="">
+      <div class="col-md">
+        <hettsOrderingProducts></hettsOrderingProducts>
+      </div>
+      <div class="col-md" style="margin-bottom: 10%">
           <div v-if="CART.length" class="cart-total">
             <div class="cart-total__h">
               <h3>Ваш заказ</h3>
@@ -29,15 +29,14 @@
               Оформить заказ
             </a>
           </div>
-        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
 import hettsOrderingProducts from "@/components/ordering/hetts-ordering-products.vue";
+
 export default {
   name: "hetts-ordering-result",
   components: {

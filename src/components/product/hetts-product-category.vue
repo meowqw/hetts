@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
+      <hetts-menu-head></hetts-menu-head>
       <div class="col-md-3">
         <div class="category-filter">
           <div class="category-filter__block">
@@ -217,6 +218,7 @@
 <script>
 import ProductItem from "./hetts-product-item.vue";
 import {mapActions, mapGetters} from "vuex";
+import HettsMenuHead from "@/components/menu/hetts-menu-head.vue";
 
 export default {
   data() {
@@ -231,6 +233,7 @@ export default {
     };
   },
   components: {
+    HettsMenuHead,
     ProductItem,
   },
   methods: {
