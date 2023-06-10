@@ -86,5 +86,8 @@ export default {
     },
     SET_CATEGORY: (state, category) => {
         state.category = category
+    },
+    SET_PRODUCT_TO_STATE: (state, product) => {
+        state.product = product
     }
 }

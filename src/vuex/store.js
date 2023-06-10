@@ -20,6 +20,8 @@ export default createStore({
     state: {
         // список продуктов
         products: [],
+
+        product: null,
         // корзина
         cart: [],
         // данные акканута

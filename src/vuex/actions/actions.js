@@ -35,5 +35,8 @@ export default {
     },
     SET_CATEGORY({commit}, category) {
         commit('SET_CATEGORY', category)
+    },
+    SET_PRODUCT({commit}, product) {
+        commit('SET_PRODUCT_TO_STATE', product)
     }
 };

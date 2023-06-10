@@ -12,6 +12,7 @@ import hettsOrderingDelivery from "@/components/ordering/hetts-ordering-delivery
 import hettsOrderingPayment from "@/components/ordering/hetts-ordering-payment.vue";
 import hettsOrderingPersonal from "@/components/ordering/hetts-ordering-personal.vue";
 import hettsOrderingResult from "@/components/ordering/hetts-ordering-result.vue";
+import hettsProductCard from "@/components/product/hetts-product-card.vue";
 
 
 
@@ -30,6 +31,11 @@ let routes = [
         path: "/cart",
         name: "cart",
         component: hettsCartMain,
+    },
+    {
+        path: "/product",
+        name: "product",
+        component: hettsProductCard,
     },
     {
         path: "/category",

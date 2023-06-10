@@ -19,9 +19,9 @@
             </a>
         </div>
 
-        <div class="product-item__actions">
+        <div class="product-item__actions" @click="goToProduct()">
             <div class="product-item__actions__btn">
-                <a style="cursor: pointer;" class="button" @click="ADD_TO_CART(product)">Купить</a>
+                <a style="cursor: pointer;" class="button">Купить</a>
             </div>
         </div>
     </div>
@@ -43,7 +43,11 @@ export default {
     // ProductStickerDiscount
   },
   methods: {
-    ...mapActions(['ADD_TO_CART'])
+    ...mapActions(['ADD_TO_CART', "SET_PRODUCT"]),
+    goToProduct() {
+      this.SET_PRODUCT(this.product);
+      this.$router.push('/product')
+    }
   }
   
 }

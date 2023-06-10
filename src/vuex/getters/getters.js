@@ -29,5 +29,8 @@ export default {
     },
     CATEGORY(state) {
         return state.category
+    },
+    PRODUCT(state) {
+        return state.product
     }
 }
