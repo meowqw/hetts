@@ -3,7 +3,7 @@
         <template v-if="CART.length">
           <div v-for="(product, key) in CART" :key="key" class="cart-product">
             <div class="cart-product__image">
-              <img src="@/assets/images/product-full-image.jpg" alt="img"/>
+              <img :src="product.image" alt="img"/>
             </div>
             <div class="cart-product__info">
               <div v-html="product.title" class="cart-product__info__t"></div>

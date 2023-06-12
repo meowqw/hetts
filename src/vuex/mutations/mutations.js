@@ -89,5 +89,11 @@ export default {
     },
     SET_PRODUCT_TO_STATE: (state, product) => {
         state.product = product
+    },
+    SELECT_PRODUCT_COLOR_TO_CART: (state, color) => {
+        state.product['cartColor'] = color;
+    },
+    SELECT_PRODUCT_SIZE_TO_CART: (state, size) => {
+        state.product['cartSize'] = size;
     }
 }

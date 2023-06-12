@@ -1,23 +1,14 @@
 <template>
-    <div class="row">
-      <!-- Список фото -->
-      <div class="col-md-6" style="width: 100px; height: 100px; margin-right: 0">
-        <div id="grid">
-          <div v-for="(picture, index) in pictures" :key="picture.pk" class="mb-3">
-            <div @click="picToShow = index">
-              <img class="img-thumbnail img-responsive" src="@/assets/images/product-full-image.jpg" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Фото -->
-      <div class="col" style="margin-left: 0">
-        <div v-if="picToShow !== null" class="text-center">
-          <img src="@/assets/images/product-full-image.jpg" alt=""/>
-        </div>
+  <div class="row">
+    <div class="col-2">
+      <div>
+        <img class=img-thumbnail :src="img" alt=""/>
       </div>
     </div>
+    <div class="col-9">
+        <img class="img-fluid" :src="img" alt=""/>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -25,7 +16,11 @@
 
 export default {
   name: "hetts-product-images",
-  props: [],
+  props: {
+    img: {
+      type: String
+    }
+  },
 
   components: {
     // ProductZoomer

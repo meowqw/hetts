@@ -11,7 +11,7 @@
     <div class="container mb-4">
       <div class="row">
         <div class="col-md-6">
-          <HettsProductImages />
+          <HettsProductImages :img="this.PRODUCT.image"/>
         </div>
         <div class="col-md-6">
           <div class="product-options mb-4">
@@ -41,7 +41,7 @@
           <HettsProductForm />
           <div class="product-description">
             <h3 class="product-desc-title">Описание</h3>
-            <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн.</p>
+            <p>{{ this.PRODUCT.description }}</p>
           </div>
         </div>
       </div>
@@ -51,27 +51,87 @@
         <div class="col-md-8">
           <div class="product-attributes">
             <ul>
-              <li>
-                <span>Цвет</span>
-                <span>Белый</span>
-              </li>
-              <li>
-                <span>Цвет</span>
-                <span>Белый</span>
+              <li v-for="(value, key) in JSON.parse(this.PRODUCT.characteristics)" v-bind:key="key">
+                <span>{{ key }}</span>
+                <span>{{ value }}</span>
               </li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <div class="section mt-5">
+    <div class="section">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <h2 class="section-title">Вам может понравится</h2>
-            <div class="row">
-              <div class="col-md-3">
+            <div
+                id="carouselExampleControls"
+                class="carousel slide"
+                data-bs-ride="carousel"
+            >
+              <div class="carousel-inner">
+                <template v-for="(carousel, index) in products"
+                          :key="carousel.id">
+                  <div
+                      :class="index === 0 ? 'carousel-item active' : 'carousel-item'">
+                    <div class="row">
+                      <div
+                          class="col-md-3"
+                          v-for="product in carousel"
+                          :key="product.id">
+                        <HettsProductItem :product="product"/>
+                      </div>
+                    </div>
+                  </div>
+                </template>
               </div>
+              <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExampleControls"
+                  data-bs-slide="prev"
+              >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-arrow-left"
+                >
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExampleControls"
+                  data-bs-slide="next"
+              >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-arrow-right"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+                <span class="visually-hidden">Next</span>
+              </button>
             </div>
           </div>
         </div>
@@ -123,31 +183,49 @@
 import HettsProductImages from "@/components/product/hetts-product-images.vue";
 import HettsProductForm from "@/components/product/hetts-product-form.vue";
 import HettsMenuHead from "@/components/menu/hetts-menu-head.vue";
-import {mapGetters} from "vuex";
+import HettsProductItem from "@/components/product/hetts-product-item.vue";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "hetts-product-card",
   components: {
     HettsMenuHead,
     HettsProductImages,
-    HettsProductForm
+    HettsProductForm,
+    HettsProductItem
   },
   methods: {
+    ...mapActions(['SELECT_PRODUCT_COLOR_CART', 'SELECT_PRODUCT_SIZE_CART', 'GET_PRODUCTS_FROM_API']),
     selectColor(color) {
       this.color = color
+      this.SELECT_PRODUCT_COLOR_CART(color);
     },
     selectSize(size) {
       this.size = size
+      this.SELECT_PRODUCT_SIZE_CART(size);
     }
   },
   computed: {
-    ...mapGetters(['PRODUCT'])
+    ...mapGetters(['PRODUCT', 'PRODUCTS'])
   },
   data() {
     return {
       color: 'green',
-      size: 'L'
+      size: 'L',
+      products: [],
     }
-  }
+  },
+  mounted() {
+    this.GET_PRODUCTS_FROM_API().then(() => {
+      this.products = this.PRODUCTS.reduce((acc, cur, i) => {
+        const index = Math.floor(i / 4);
+        if (!acc[index]) {
+          acc[index] = [];
+        }
+        acc[index].push(cur);
+        return acc;
+      }, []); // An array of arrays, each containing 4 elements
+    });
+  },
 }
 </script>

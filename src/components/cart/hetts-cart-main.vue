@@ -22,7 +22,7 @@
                 </div>
               </div>
               <div class="cart-product__image">
-                <img src="@/assets/images/product-full-image.jpg"/>
+                <img alt="" :src="product.image"/>
               </div>
               <div class="cart-product__info">
                 <div class="cart-product__info__t">{{ product.title }}</div>
@@ -37,6 +37,25 @@
                       </div>
                       <button @click="DECREMENT_CART_ITEM(product.id)">-</button>
                     </div>
+                  </div>
+                  <div>
+                    <span>Размер</span>
+                    <select class="custom-select">
+                      <option value="m">M</option>
+                      <option value="xl">XL</option>
+                      <option value="l">L</option>
+                      <option value="s">S</option>
+                    </select>
+                  </div>
+                  <div>
+                    <span>Цвет</span>
+                    <select class="custom-select">
+                      <option value="green">Зеленый</option>
+                      <option value="red">Красный</option>
+                      <option value="yellow">Желтый</option>
+                      <option value="black">Черный</option>
+                      <option value="gray">Серый</option>
+                    </select>
                   </div>
                 </div>
               </div>

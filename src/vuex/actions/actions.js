@@ -38,5 +38,11 @@ export default {
     },
     SET_PRODUCT({commit}, product) {
         commit('SET_PRODUCT_TO_STATE', product)
+    },
+    SELECT_PRODUCT_COLOR_CART({commit}, color) {
+        commit('SELECT_PRODUCT_COLOR_TO_CART', color);
+    },
+    SELECT_PRODUCT_SIZE_CART({commit}, size) {
+        commit('SELECT_PRODUCT_SIZE_TO_CART', size);
     }
 };
